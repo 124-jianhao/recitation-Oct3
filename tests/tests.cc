@@ -86,5 +86,7 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-4]") {
   transactions[{12345678, 1234}].push_back(
       "Deposit - Amount: $32000.00, Updated Balance: $72099.90");
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
+  REQUIRE_THROWS_AS(atm.PrintLedger("./prompt.txt", 12345679, 1234),
+                    std::invalid_argument);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
 }
