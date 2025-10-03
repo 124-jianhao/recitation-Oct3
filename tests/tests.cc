@@ -32,7 +32,6 @@ bool CompareFiles(const std::string& p1, const std::string& p2) {
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Test Cases
 /////////////////////////////////////////////////////////////////////////////////////////////
-TEST_CASE("Test register function") {}
 
 TEST_CASE("Example: Create a new account", "[ex-1]") {
   Atm atm;
@@ -40,6 +39,8 @@ TEST_CASE("Example: Create a new account", "[ex-1]") {
   auto accounts = atm.GetAccounts();
   REQUIRE(accounts.contains({12345678, 1234}));
   REQUIRE(accounts.size() == 1);
+  REQUIRE_THROWS_AS(atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30),
+                    std::invalid_argument);
 
   Account sam_account = accounts[{12345678, 1234}];
   REQUIRE(sam_account.owner_name == "Sam Sepiol");
